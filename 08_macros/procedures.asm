@@ -28,6 +28,7 @@ _start:
     call print
 
     mov rdi, 1000000000
+
     call delay
 
     mov rsi, msg2
