@@ -1,0 +1,65 @@
+$ ./stack_03 ; echo $?
+exit status: 0
+
+Breakpoint 1 at 0x401000: file 03.asm, line 5.
+
+Breakpoint 1, _start () at 03.asm:5
+5	    mov rax, 10
+
+--- Before first instruction ---
+=> 0x401000 <_start>:	mov    eax,0xa
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+6	    call calculate
+
+--- after step 1 ---
+=> 0x401005 <_start+5>:	call   0x401015 <calculate>
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0xa RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+calculate () at 03.asm:17
+17	    add rax, 5
+
+--- after step 2 ---
+=> 0x401015 <calculate>:	add    rax,0x5
+RSP=0x7fffffffe1a8 RBP=0x0 RAX=0xa RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1a8:	0x000000000040100a	0x0000000000000001
+0x7fffffffe1b8:	0x00007fffffffe42a	0x0000000000000000
+18	    ret
+
+--- after step 3 ---
+=> 0x401019 <calculate+4>:	ret
+RSP=0x7fffffffe1a8 RBP=0x0 RAX=0xf RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1a8:	0x000000000040100a	0x0000000000000001
+0x7fffffffe1b8:	0x00007fffffffe42a	0x0000000000000000
+after_call () at 03.asm:10
+10	    nop
+
+--- after step 4 ---
+=> 0x40100a <after_call>:	nop
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0xf RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+12	    mov rax, 60
+
+--- after step 5 ---
+=> 0x40100b <after_call+1>:	mov    eax,0x3c
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0xf RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+13	    xor rdi, rdi
+
+--- after step 6 ---
+=> 0x401010 <after_call+6>:	xor    rdi,rdi
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x3c RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+14	    syscall
+
+--- after step 7 ---
+=> 0x401013 <after_call+9>:	syscall
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x3c RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+[Inferior 1 (process 452) exited normally]

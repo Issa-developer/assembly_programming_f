@@ -1,0 +1,81 @@
+$ ./stack_05 ; echo $?
+exit status: 0
+
+Breakpoint 1 at 0x401000: file 05.asm, line 5.
+
+Breakpoint 1, _start () at 05.asm:5
+5	    mov rax, 0x1122334455667788
+
+--- Before first instruction ---
+=> 0x401000 <_start>:	movabs rax,0x1122334455667788
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+6	    mov rbx, 0x1234
+
+--- after step 1 ---
+=> 0x40100a <_start+10>:	mov    ebx,0x1234
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x1122334455667788 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+8	    push rax
+
+--- after step 2 ---
+=> 0x40100f <_start+15>:	push   rax
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x1122334455667788 RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+_start () at 05.asm:9
+9	    push rbx
+
+--- after step 3 ---
+=> 0x401010 <_start+16>:	push   rbx
+RSP=0x7fffffffe1a8 RBP=0x0 RAX=0x1122334455667788 RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1a8:	0x1122334455667788	0x0000000000000001
+0x7fffffffe1b8:	0x00007fffffffe42a	0x0000000000000000
+_start () at 05.asm:10
+10	    nop
+
+--- after step 4 ---
+=> 0x401011 <_start+17>:	nop
+RSP=0x7fffffffe1a0 RBP=0x0 RAX=0x1122334455667788 RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1a0:	0x0000000000001234	0x1122334455667788
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+12	    pop rbx
+
+--- after step 5 ---
+=> 0x401012 <_start+18>:	pop    rbx
+RSP=0x7fffffffe1a0 RBP=0x0 RAX=0x1122334455667788 RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1a0:	0x0000000000001234	0x1122334455667788
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+_start () at 05.asm:13
+13	    pop rax
+
+--- after step 6 ---
+=> 0x401013 <_start+19>:	pop    rax
+RSP=0x7fffffffe1a8 RBP=0x0 RAX=0x1122334455667788 RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1a8:	0x1122334455667788	0x0000000000000001
+0x7fffffffe1b8:	0x00007fffffffe42a	0x0000000000000000
+_start () at 05.asm:15
+15	    mov rax, 60
+
+--- after step 7 ---
+=> 0x401014 <_start+20>:	mov    eax,0x3c
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x1122334455667788 RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+16	    xor rdi, rdi
+
+--- after step 8 ---
+=> 0x401019 <_start+25>:	xor    rdi,rdi
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x3c RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+17	    syscall
+
+--- after step 9 ---
+=> 0x40101c <_start+28>:	syscall
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x3c RBX=0x1234 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+[Inferior 1 (process 468) exited normally]

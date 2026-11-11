@@ -1,0 +1,114 @@
+$ ./stack_02 ; echo $?
+exit status: 0
+
+Breakpoint 1 at 0x401000: file 02.asm, line 5.
+
+Breakpoint 1, _start () at 02.asm:5
+5	    call work
+
+--- Before first instruction ---
+=> 0x401000 <_start>:	call   0x40100f <work>
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+work () at 02.asm:11
+11	    push rbp
+
+--- after step 1 ---
+=> 0x40100f <work>:	push   rbp
+RSP=0x7fffffffe1a8 RBP=0x0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1a8:	0x0000000000401005	0x0000000000000001
+0x7fffffffe1b8:	0x00007fffffffe42a	0x0000000000000000
+12	    mov rbp, rsp
+
+--- after step 2 ---
+=> 0x401010 <work+1>:	mov    rbp,rsp
+RSP=0x7fffffffe1a0 RBP=0x0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+13	    sub rsp, 16
+
+--- after step 3 ---
+=> 0x401013 <work+4>:	sub    rsp,0x10
+RSP=0x7fffffffe1a0 RBP=0x7fffffffe1a0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+15	    mov qword [rbp - 8], 100
+
+--- after step 4 ---
+=> 0x401017 <work+8>:	mov    QWORD PTR [rbp-0x8],0x64
+RSP=0x7fffffffe190 RBP=0x7fffffffe1a0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe190:	0x0000000000000000	0x0000000000000000
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+16	    mov qword [rbp - 16], 200
+
+--- after step 5 ---
+=> 0x40101f <work+16>:	mov    QWORD PTR [rbp-0x10],0xc8
+RSP=0x7fffffffe190 RBP=0x7fffffffe1a0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe190:	0x0000000000000000	0x0000000000000064
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+18	    mov rax, [rbp - 8]
+
+--- after step 6 ---
+=> 0x401027 <work+24>:	mov    rax,QWORD PTR [rbp-0x8]
+RSP=0x7fffffffe190 RBP=0x7fffffffe1a0 RAX=0x0 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe190:	0x00000000000000c8	0x0000000000000064
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+19	    mov rbx, [rbp - 16]
+
+--- after step 7 ---
+=> 0x40102b <work+28>:	mov    rbx,QWORD PTR [rbp-0x10]
+RSP=0x7fffffffe190 RBP=0x7fffffffe1a0 RAX=0x64 RBX=0x0 RCX=0x0 RDX=0x0
+0x7fffffffe190:	0x00000000000000c8	0x0000000000000064
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+20	    nop
+
+--- after step 8 ---
+=> 0x40102f <work+32>:	nop
+RSP=0x7fffffffe190 RBP=0x7fffffffe1a0 RAX=0x64 RBX=0xc8 RCX=0x0 RDX=0x0
+0x7fffffffe190:	0x00000000000000c8	0x0000000000000064
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+22	    mov rsp, rbp
+
+--- after step 9 ---
+=> 0x401030 <work+33>:	mov    rsp,rbp
+RSP=0x7fffffffe190 RBP=0x7fffffffe1a0 RAX=0x64 RBX=0xc8 RCX=0x0 RDX=0x0
+0x7fffffffe190:	0x00000000000000c8	0x0000000000000064
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+23	    pop rbp
+
+--- after step 10 ---
+=> 0x401033 <work+36>:	pop    rbp
+RSP=0x7fffffffe1a0 RBP=0x7fffffffe1a0 RAX=0x64 RBX=0xc8 RCX=0x0 RDX=0x0
+0x7fffffffe1a0:	0x0000000000000000	0x0000000000401005
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+24	    ret
+
+--- after step 11 ---
+=> 0x401034 <work+37>:	ret
+RSP=0x7fffffffe1a8 RBP=0x0 RAX=0x64 RBX=0xc8 RCX=0x0 RDX=0x0
+0x7fffffffe1a8:	0x0000000000401005	0x0000000000000001
+0x7fffffffe1b8:	0x00007fffffffe42a	0x0000000000000000
+_start () at 02.asm:6
+6	    mov rax, 60
+
+--- after step 12 ---
+=> 0x401005 <_start+5>:	mov    eax,0x3c
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x64 RBX=0xc8 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+7	    xor rdi, rdi
+
+--- after step 13 ---
+=> 0x40100a <_start+10>:	xor    rdi,rdi
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x3c RBX=0xc8 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+8	    syscall
+
+--- after step 14 ---
+=> 0x40100d <_start+13>:	syscall
+RSP=0x7fffffffe1b0 RBP=0x0 RAX=0x3c RBX=0xc8 RCX=0x0 RDX=0x0
+0x7fffffffe1b0:	0x0000000000000001	0x00007fffffffe42a
+0x7fffffffe1c0:	0x0000000000000000	0x00007fffffffe438
+[Inferior 1 (process 436) exited normally]
